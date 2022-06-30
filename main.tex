@@ -1,0 +1,1390 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[LGR, T1]{fontenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{multirow}
+\setlength{\arrayrulewidth}{0.5mm}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.5}
+
+\begin{document}
+\begin{titlepage}
+\centering
+
+\begin{figure}
+    \centering
+    \includegraphics[width=13cm]{aueb.jpg}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\
+
+
+
+
+\
+
+
+\huge{\textbf{ΑΝΑΛΥΣΗ ΔΕΔΟΜΕΝΩΝ}} \ 
+
+
+
+
+\Large{ΤΜΗΜΑ ΣΤΑΤΙΣΤΙΚΗΣ}
+\\
+\Large{ΕΑΡΙΝΟ ΕΞΑΜΗΝΟ 2022}
+\
+
+
+
+
+\
+
+
+
+\
+
+\rule{\textwidth}{3pt}
+
+
+
+\huge{Use case 1: Μελέτη Αγροτικής Οικονομίας των ΗΠΑ}
+
+\rule{\textwidth}{3pt}
+
+\
+
+
+
+
+\
+
+
+\large {Ονοματεπώνυμο: Βασίλειος Ηλίας Δρούζας}
+
+Αριθμός Μητρώου: 3180051
+
+
+Διδάσκοντες: Ιωάννης Ντζούφρας, Ξανθή Πεντελή
+
+
+Μάιος 2022
+
+
+
+Εργαλεία: R,Rstudio,Latex
+
+
+
+
+
+\end{titlepage}
+
+
+
+
+\newpage
+
+\renewcommand*\contentsname{Περιεχόμενα}
+\tableofcontents
+
+\newpage
+\section{Εισαγωγή και περιγραφή της μελέτης περίπτωσης: Η αγροτική οικονομία των ΗΠΑ}
+
+Στην εποχή μας, η επιστήμη και η τεχνολογία έχουν έρθει για να δώσουν λύσεις και να διευκολύνουν τη ζωή του ανθρώπου. Η επιστήμη της στατιστικής, μαζί με την ανάλυση, μπορούν να δώσουν φως και να εξάγουν συμπεράσματα βάσει των παρατηρούμενων δεδομένων.
+\
+H περίοδος 1925-1941 για τις ΗΠΑ βρήκε τον αμερικανικό λαό σε πολλές διαφορετικές καταστάσεις. Η "Great Depression", που προέκυψε το 1929 και κράτησε επί μία δεκαετία ύστερα από μια μεγάλη πτώση στις τιμές των αποθεμάτων προιόντων στις ΗΠΑ (λόγω του "κραχ" της Wall street) έφερε σημαντική οικονομική ύφεση.Επίσης, οι ΗΠΑ είχαν εμπλοκή στον Β' παγκόσμιο πόλεμο (1939-1945), παράγοντες που επηρέασαν σαφώς και την αγροτική οικονομία της χώρας.
+
+
+\
+
+
+
+
+\
+Στην παρούσα ανάλυση θα εξετάσουμε τη κατανάλωση μοσχαρίσιου και χοιρινού κρέατος στις ΗΠΑ τη χρονική περίοδο 1925-1941 και τη σχέση μεταξύ της κατανάλωσης-τιμής καθώς και υπόλοιπων παραμέτρων, οι οποίες αναφέρονται παρακάτω.
+
+\
+
+
+
+
+\
+
+Οι μεταβλητές λοιπόν που θα εξεταστούν είναι οι ακόλουθες:
+\\
+\begin{itemize}
+    \item \textbf{PBE :} Η τιμή του μοσχαρίσιου κρέατος (cents/lb) , όπου lb: λίβρα
+    \item \textbf{CBE :} Η κατανάλωση μοσχαρίσιου κρέατος ανά άτομο (lbs)
+    \item \textbf{PPO :} Η τιμή του χοιρινού κρέατος (cents/lb)
+    \item \textbf{CPO :} Η κατανάλωση χοιρινού κρέατος ανά άτομο (lbs)
+    \item \textbf{PFO :} Δείκτης τιμών λιανικής πώλησης (1947-1949=100)
+    \item \textbf{DINC :} Δείκτης διαθέσιμου εισοδήματος ανά άτομο (Disposable income per capita index, 1947-1949=100)
+    \item \textbf{CFO :} Δείκτης κατανάλωσης τροφίμων ανά άτομο (1947-1949=100)
+    \item \textbf{RDINC :} Δείκτης πραγματικού διαθέσιμου εισοδήματος ανά άτομο (1947-1949=100)
+    \item \textbf{RFP :} Δείκτης τιμών τροφίμων λαμβάνοντας υπόψη και το CPI (1947-1949=100)
+\end{itemize}
+
+\
+
+
+
+
+\
+
+
+
+\
+Τα δεδομένα που έχουμε δεν είναι πολλά, είναι οι τιμές των μεταβλητών που αναφέραμε παραπάνω για το χρονικό διάστημα 1925-1941. Παίρνοντας τα δεδομένα από το σύνδεσμο στο eclass, τα περνάμε σε ένα csv αρχείο και το εισάγουμε στο Rstudio για να ξεκινήσουμε την ανάλυση.
+
+
+\
+
+
+
+Από το Output 1 του παραρτήματος βλέπουμε ότι όλες οι τιμές λαμβάνουν συνεχείς τιμές , όπως επίσης ότι τα δεδομένα είναι ποσοτικά χαρακτηριστικά (τιμή, κατανάλωση κρέατος και δείκτες τιμών/εισοδήματος/κατανάλωσης).
+\
+
+%\newpage
+\section{Πρώτη γνωριμία με τα δεδομένα- Έλεγχος κανονικότητας}
+
+ Πριν ξεκινήσουμε την ανάλυση, μετατρέπουμε τις τιμές σε cents/kg και τη κατανάλωση σε κιλά. Η ισοδυναμία είναι 1 lb=0.4536 kg και 1 cent/lb= 2.2046 cents/kg. Επομένως, οι μεταβλητές PBE και PPO πολ/ζονται με 2.2046 και οι CBE,CPO με 0.4536.
+  
+\subsection{ Πρώτη γνωριμία}
+
+ Πρώτα καλό είναι να επισκοπήσουμε τα δεδομένα μας, να δούμε αν υπάρχουν ατυπικές τιμές (outliers). Μπορούμε να το πετύχουμε αυτό μέσω των boxplots:
+ 
+ 
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Boxplots.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+\
+
+\renewcommand{\caption}{Σχήμα 1: }
+\caption{Πλάι-πλάι boxplots των μεταβλητών (πλην της RFP)}
+
+
+\
+
+
+\
+
+Αφαιρέσαμε από το παραπάνω διάγραμμα το boxplot της RFP, διότι οι τιμές της ήταν πολύ αυξημένες σε σχέση με τις υπόλοιπες μεταβλητές και θα μας δυσχέραινε την οπτική. Το boxplot για την μεταβλητή αυτή βρίσκεται στο Output 4.
+Οι μεταβλητές CFO,RDINC και CPO, όπως βλέπουμε στο σχήμα, παρουσιάζουν μερικές ατυπικές τιμές (η CFΟ κυρίως). Στους ελέγχους που θα κάνουμε στη συνέχεια δεν προβλέπεται να μας επηρεάσουν κάπου αρνητικά.
+Στο Οutput2 παρουσιάζονται και βασικά περιγραφικά μέτρα για όλες τις μεταβλητές.
+\
+
+
+\
+
+
+\subsection{Έλεγχος κανονικότητας}
+Στη συνέχεια θα κάνουμε έλεγχο κανονικότητας του δείγματος. Αρχικά παρουσιάζουμε τα ιστογράμματα όλων των μεταβλητών:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Normality check.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Σχήμα 1: }
+\caption{Ιστογράμματα κανονικότητας των μεταβλητών του δείγματος}
+\end{centering}
+\
+
+\
+    
+
+
+\
+Οι περισσότερες μεταβλητές φαίνεται να ακολουθούν την κανονικότητα. Για να έχουμε μια πιο ξεκάθαρη εικόνα, μπορούμε να εφαρμόσουμε έλεγχο κανονικότητας του Shapiro στις μεταβλητές, όπου σε επίπεδο σημαντικότητας 5\% μόνο οι μεταβλητές CPO,PFO περιέχουν μη κανονικοποιημένα δεδομένα.
+\
+
+\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro-walk on PFO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro walk on CPO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Πίνακας 1: }
+\caption {Έλεγχος Shapiro-wilk για τις μεταβλητές PFO,CPO. }
+\end{centering}
+\
+
+\
+
+\
+
+Για τις υπόλοιπες μεταβλητές οι έλεγχοι απέδωσαν p-value>0.05, επομένως και τα αντίστοιχα δεδομένα θεωρήθηκαν κανονικοποιημένα. Τα αναλυτικά αποτελέσματα περιέχονται στα Output 6-12.
+Μπορούμε να διερευνήσουμε τα διαγράμματα Q-Q plots για τις μεταβλητές PFO,CPO που βρέθηκαν μη κανονικοποιημένες.Τα διαγράμματα παρουσιάζουν ξεκάθαρα μια σχέση που δε μπορεί να θεωρηθεί κανονική (Outputs 31,32).
+\
+
+\
+\section{ Σχέσεις μεταβλητών}
+
+\subsection { Επιλογή ελέγχου}
+Εδώ θα ελέγξουμε τις σχέσεις μεταξύ των μεταβλητών. Από το προηγούμενο ερώτημα, είδαμε ότι όλες οι μεταβλητές πλην των CPO,PFO ακολουθούν την κανονική κατανομή.
+
+Επειδή λοιπόν δεν είναι όλα τα δεδομένα μας κανονικοποιημένα, δε μπορούμε να χρησιμποιήσουμε τον παραμετρικό έλεγχο μέσω του συντελεστή συσχέτισης του Pearson. Αντί αυτού, θα χρησιμοποιήσουμε τους ελέγχους των Kendall και Spearman (μη παραμετρικοί).
+
+\subsection {  Σχέσεις μεταβλητών ανά δύο}
+
+Στον παρακάτω πίνακα του Κendall, μπορούμε να επισκοπήσουμε τις σχέσεις μεταξύ των μεταβλητών. Οι τιμές του δείκτη συσχέτισης κυμαίνονται στο [-1,1]. Τιμές πιο κοντά στο -1 και το 1 δηλώνουν τόσο πιο ισχυρή σχέση (αρνητική και θετική αντίστοιχα) , ενώ τιμές κοντά στο 0 δηλώνουν απουσία συσχέτισης μεταξύ των μεταβλητών. Τα αστεράκια δηλώνουν και αυτά την ισχύ της σχέσης των μεταβλητών (όσο περισσότερα, τόσο πιο ισχυρή η σχέση).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{"Kendal's correlation diagram.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Σχήμα 2: }
+\caption { Πίνακας συσχέτισης του Kendall. }
+\end{centering}
+
+
+
+\begin{itemize}
+    \item Η μεταβλητή Year, δεν έχει ιδιαίτερα υψηλή σχέση με άλλη μεταβλητή, όμως η σχέση της με τις PFO,RFP δεν είναι καθόλου αμελητέα.
+    \item Η μεταβλητή RDINC παρουσιάζει υψηλή θετική συσχέτιση με την DINC (αναμενόμενο, αφού εκφράζουν παρόμοια πράγματα) και με την CFO \newline (κατανάλωση τροφίμων ανά άτομο). Δε μας κάνει εντύπωση, αφού αυτό σημαίνει ότι όσο πιο πλούσιο/φτωχό είναι ένα άτομο, τόσο περισσότερο/λιγότερο αντίστοιχα έχει την (οικονομική) δυνατότητα να αγοράσει κρέας.
+    \item Η μεταβλητή CBE παρουσιάζει υψηλή συσχέτιση με την PBE(προφανές, η τιμή του μοσχαρίσιου κρέατος επηρεάζει τη κατανάλωση του). Αντίστοιχα και οι μεταβλητές PPO,CPO για το χοιρινό κρέας.
+    \item Η μεταβλητή CPO παρουσιάζει υψηλή συσχέτιση με τις DINC,PBE.Εύλογα, καθώς όσο μεγαλύτερο το εισόδημα, τόσο μεγαλύτερη και η ευχέρεια για κατανάλωση. Αντίστοιχα , όσο μικρότερη η τιμή, τόσο μεγαλύτερη πάλι η καταναλωτική ευχέρεια.
+    
+    Προς επιβεβαίωση των παραπάνω, τρέξαμε Chi-squared ελέγχους για τις σχέσεις των παραπάνω μεταβλητών. Τα αποτελέσματα βρίσκονται στο Output 30.
+    
+    Μια εναλλακτική του Kendall για μη παραμετρικούς ελέγχους, όπως \newline προαναφέραμε, είναι ο δείκτης συσχέτισης του Spearman. Το Output 14 παρουσιάζει τη μορφή του πίνακα αυτού, ο οποίος συμφωνεί σε μεγάλο βαθμό με τον πίνακα του Kendall.
+    
+    Συνολικά μπορούμε να πούμε ότι ναι μεν υπάρχει συσχέτιση μεταξύ μερικών μεταβλητών που προαναφέραμε, όμως ίσως μια γενική εικόνα είναι ότι οι περισσότερες μεταβλητές δεν παρουσίαζουν μεγάλη συσχέτιση μεταξύ τους.
+
+\end{itemize}
+
+\subsection {Ποιοι παράγοντες καθορίζουν τη τιμή του μοσχαρίσιου και χοιρινού κρέατος}
+
+ \
+
+\
+
+Παρακάτω εφαρμόζουμε ένα μοντέλο γραμμικής παλινδρόμησης με εξαρτημένη μεταβλητή τη τιμή του μοσχαρίσιου και αρχικά με όλες τις υπόλοιπες μεταβλητές. Θα εφαρμόσουμε τη διαδικασία stepwise selection (forward και backward) για την επιλογή των μεταβλητών. Η πρώτη μεταβλητή που αφαιρεί ο έλεγχος είναι η RFP. Στη συνέχεια, ο έλεγχος δεν αφαιρεί κάποια (πρόβλημα: μας αφήνει με σχεδόν όλες τις μεταβλητές, ενώ το AIC score από το επόμενο μοντέλο μεγαλώνει και παρατηρούμε ότι υπάρχει πρόβλημα πολυσυγγραμικότητας στα δεδομένα με τιμές ακόμα και παραπάνω από 100. Άρα η μέθοδος stepwise selection εδώ δε λειτουργεί καλά, με το πρόβλημα υπερπροσαρμογής (overfitting) στα δεδομένα). Στο Output 48 βλέπουμε ότι οι 3 μεταβλητές που επηρεάζουν σημαντικά είναι οι CBE,PPO,CPO(p-value < 0.05 σε 95\% επίπεδο σημαντικότητας).Θα κρατήσουμε αυτές. Το μοντέλο πετυχαίνει adjusted R squared ίσο με 91.7\% και είναι το εξής:
+\
+
+\
+
+\
+PBE=476.1912 - 7.5996*CBE - 0.1885*PPO - 4.0498*CPO 
+
+\
+
+\
+
+Στο Output 34 βλέπουμε κάποια βασικά διαγράμματα ελέγχου του παραπάνω μοντέλου. Τώρα ας κάνουμε έναν έλεγχο για τις προυποθέσεις της γραμμικής παλινδρόμησης:
+\
+
+\
+
+\textbf {1. Κανονικότητα καταλοίπων.}
+Για τον έλεγχο του μοντέλου βλέπουμε από το Output 34 και κάνοντας τους ελέγχους  shapiro και lillie (output 35) ότι τα δεδομένα είναι κανονικά κατανεμημένα. 
+
+\
+
+\textbf{2. Ανεξαρτησία-τυχαιότητα καταλοίπων.}
+
+Βλέπουμε από τον έλεγχο του Durbin-Watson στο Output 36 ότι η τιμή του ελέγχου είναι 1.65 (κοντά στο 2) η οποία δεν απορρίπτει την μηδενική υπόθεση της ανεξαρτησίας σε επίπεδο σημαντικότητας α = 5\%. Άρα μπορούμε να επιβεβαιώσουμε την ανεξαρτησία και τυχαιότητα των καταλοίπων.
+
+\
+
+\textbf{3. Ομοσκεδαστικότητα καταλοίπων.}
+
+Για την ομοσκεδαστικότητα των καταλοίπων ελέγχουμε το διάγραμμα Scale-Location (Output 34), όπου μια οριζόντια γραμμή με περίπου ίση ταξινόμηση των αντικειμένων στο χώρο θα ήταν μια καλή ένδειξη (δεν είμαστε ιδιαίτερα σίγουροι στο παράδειγμα μας). Βρίσκουμε όμως με το LeveneTest (Output 46) ότι p-value=0.27, ιοπότε μπορούμε να θεωρήσουμε ότι η ομοσκεδαστικότητα ισχύει.
+
+\
+
+\textbf{4. Γραμμικότητα καταλοίπων.}
+
+Στο διάγραμμα residuals vs fitted, βλέπουμε ότι η κόκκινη γραμμή δεν είναι ευθεία και πολλά σημεία βρίσκονται μακριά από το 0, κάτι που αποτελεί ένδειξη μη γραμμικότητας.
+
+\
+
+\textbf{5. Πολυ-συγγραμικότητα μοντέλου.}
+
+Μιας και πρόκειται για μοντέλο πολλαπλής παλινδρόμησης, οφείλουμε να ελέγξουμε τον δείκτη διόγκωσης διακύμανσης (VIF).  Βρίσκουμε ότι ο δείκτης είναι σε όλες τις μεταβλητές <5, επομένως δεν υπάρχει πρόβλημα πολυσυγγραμικότητας του μοντέλου.
+
+\
+\
+
+Θεωρώντας λοιπόν ότι η υπόθεση της γραμμικότητας καταλοίπων δεν ισχύει, το μοντέλο που προκύπτει δεν μπορεί να θεωρηθεί πλήρως αξιόπιστο οπότε χρειάζεται προσοχή στην ερμηνεία των αποτελεσμάτων.
+
+
+\
+\
+
+Για τη τιμή του χοιρινού κρέατος κάνουμε αρχικά τη παλινδρόμηση με ανεξάρτητες τις CPO,PBE,CPE,YEAR. Όμως βρίσκουμε ότι παραβιάζεται ο κανόνας της πολυσυγγραμικότητας (βρήκαμε τιμές>10 στις μεταβλητές CBE και PBE). Αφαιρούμε τη PBE (είχε το μεγαλύτερο vif value) και αφού στο μοντέλο αυτό η CBE δε συνεισφέρει πολύ(p-value=0.1), την αφαιρούμε και αυτή. Τελικά παίρνουμε το μοντέλο:
+
+\
+
+\
+
+PPO=4435.3084 - 5.5657*CPO - 2.1465*YEAR,
+
+\
+
+\
+
+το οποίο έχει 95.4\% adjusted R squared , κάτι που το καθιστά πολύ ισχυρό. Έπειτα ακολουθούμε την ίδια διαδικασία για τον έλεγχο των προυποθέσεων του μοντέλου για τη γραμμική παλινδρόμηση. Aναλυτικά τα αποτελέσματα στα Outputs 37-40 και 42,47.
+
+\
+Τα AIC και BIC scores των μοντέλων παρουσιάζονται στα Output 50,51. Βλέπουμε ότι με μόνο df=4 καταφέραμε να κρατήσουμε ένα αξιοπρεπές AIC και BIC score και για χοιρινό και μοσχαρίσιο κρέας,ενώ για ένα καλό μέτρο σύγκρισης το μοντέλο που επιλέξαμε έχει πολύ καλύτερο score από ένα τυχαίο μοντέλο με τον ίδιο αριθμό df. Αυτό είναι ένα ακόμη στοιχείο που αποδεικνύει και αυτό την καλή απόδοση του μοντέλου.
+
+
+\
+
+\section{ Η επίδραση του χρόνου και άλλων μεταβλητών στις τιμές}
+
+
+
+\subsection{ Η επίδραση του χρόνου}
+
+\
+
+\
+
+
+Θα εξετάσουμε αρχικά τη τιμή του μοσχαρίσιου κρέατος με το χρόνο.Το παρακάτω scatterplot (σχήμα 3), μας βοηθάει για να οπτικοποιήσουμε τυχόν σχέσεις μεταξύ των μεταβλητών.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{"Scatterplot_Beefprice_time.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Σχήμα 3: }
+\caption { Scatterplot για τη σχέση χρόνου-τιμής μοσχαρίσιου κρέατος. }
+\end{centering}
+\
+
+\
+
+\
+
+
+Το σχήμα 3 δε μας πείθει ότι υπάρχει κάποια ιδιαίτερη σχέση μεταξύ των δύο μεταβλητών που εξετάζουμε.Κάνοντας δοκιμές στο μοντέλο της πολλαπλής παλινδρόμησης, παρατηρήσαμε ότι η πιο σημαντική μεταβλητή είναι η CBE στο μοντέλο του μοσχαρίσιου κρέατος(δηλ. η κατανάλωσή του), κάτι απόλυτα λογικό. Ο χρόνος δεν είναι ισχυρός predictor, όπως υπέδειξε ο Kendall. 
+
+\
+
+
+
+
+
+
+Θα δοκιμάσουμε τώρα τη σχέση μεταξύ της τιμής χοιρινού κρέατος- χρόνου.
+Βλέπουμε ότι ίσως εδώ η σχέση είναι λίγο πιο δυνατή από ότι προηγουμένως, όχι σίγουρα πολύ ισχυρή αλλά υπάρχει, καθώς και η κλίση της ευθειας είναι μεγαλύτερη.
+ 
+ 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{"pork_time.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Σχήμα 3: }
+\caption { Scatterplot για τη σχέση χρόνου-τιμής χοιρινού κρέατος. }
+\end{centering}
+
+\
+
+\
+
+Επομένως ο χρόνος δεν επηρεάζει τις τιμές του μοσχαρίσιου κρέατος. Για το χοιρινό όμως, θεωρούμε ότι έχει βαρύτητα.
+
+Ακόμη, ο χρόνος  επηρεάζει (αρνητικά)  το δείκτη τιμών λιανικής πώλησης. Όσο τα χρόνια περνούν, τόσο η τιμή πέφτει, κάτι που επαληθεύεται και από το γεγονός ότι η ευημερία στην οικονομία των ΗΠΑ σταμάτησε λόγω του "κραχ" και του Β' παγκόσμιου πολέμου.
+Ανάλογα κάνουμε ελέγχους για προυποθέσεις της γραμμικής παλινδρόμησης.
+
+\
+
+\
+
+\subsection{Η επίδραση άλλων μεταβλητών}
+\
+
+\
+Θα δοκιμάσουμε αρχικά να επιβεβαιώσουμε τις σχέσεις των μεταβλητών που ανακαλύψαμε πριν μέσω του διαγράμματος του Kendall.Η τιμή επηρεάζεται από τη κατανάλωση; Ναι, σύμφωνα και με τα Output 19,20 για μοσχαρίσιο και χοιρινό κρέας αντίστοιχα.
+
+Με βάση τα παραπάνω outputs επιβεβαιώνουμε τη σχέση που είχε προβλέψει ο Kendall. Το CPO (κατανάλωση του  μοσχαρίσιου) είναι πολύ καλός εκτιμητής της τιμής του μοσχαρίσιου κρέατος και η κατανάλωση του χοιρινού επηρεάζει επίσης.
+
+
+\
+
+
+
+Κάνουμε την ίδια διαδικασία για να βρούμε αν κάποια μεταβλητή καθορίζει τη τιμή του χοιρινού κρέατος. Βρίσκουμε ότι καλός εκτιμητής είναι η κατανάλωση του χοιρινού (προφανώς) και όπως μας είχε προιδεάσει ο Kendall η τιμή του μοσχαρίσιου κρέατος δεν μπορεί να εκτιμήσει καλά τη τιμή του χοιρινού όπως επίσης και η κατανάλωση του μοσχαρίσιου (το είδαμε στο μοντέλο παλινδρόμησης, που δε χρειαστήκαμε τις 2 αυτές μεταβλητές). Ο μοναδικός δηλαδή σοβαρός εκτιμητής της τιμής του χοιρινού είναι η κατανάλωση του. Η τιμή του χοιρινού κρέατος δεν επηρεάζεται από τον ανταγωνισμό, όπως επίσης και από τους δείκτες (εισοδήματος,κατανάλωσης κλπ.) , πράγμα που το καθιστά πολύ ισχυρό στην αγορά. Αναλυτικά τα αποτελέσματα στα Outputs 23,24.
+
+\section{Υπάρχουν σημαντικές διαφορές στους μέσους ή διαμέσους των περιόδων 1925-1930,1931-1935,1936-1941;}
+
+Αρχικά θα χωρίσουμε τις μεταβλητές PBE,PPO σε τρία μέρη. Για τη μεταβλητή PBE στα PBE-first,PBE-second και PBE-third που αντιπροσωπεύουν τις τιμές του μοσχαρίσιου κρέατος τα χρονικά διαστήματα 1925-1930,1931-1935 και 1936-1941 αντίστοιχα. Αντίστοιχα χωρίζουμε και την PPO. Οι τρεις νέες μεταβλητές για κάθε τιμή αντιπροσωπεύουν δείγματα ανεξάρτητα μεταξύ τους.
+
+
+\subsection{Μέσοι}
+Κάνουμε έλεγχο t-test για ανεξάρτητα δείγματα στις μεταβλητές που φτιάξαμε.Ξέρουμε ότι η PPO ακολουθεί τη κανονική κατανομή και έχοντας χωρίσει τη μεταβλητή στα δύο, προφανώς οι διακυμάνσεις είναι ίσες. Ξεκινώντας για την τιμή του μοσχαρίσιου κρέατος έχουμε:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PBE1-2 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PBE1-3 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PBE2-3 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Πίνακας 4: }
+\caption { t-tests για να βρούμε αν η διαφορά μεταξύ των μέσων στις 3 περιόδους είναι σημαντική. }
+\end{centering}
+
+\begin{itemize}
+    \item Μεταξύ των περιόδων 1925-1930 και 1931-1935, υπάρχει στατιστικά σημαντική διαφορά καθώς το p-value=0.03<0.05, άρα απορρίπτουμε την Η0 ότι η διαφορά είναι μηδενική.
+    \item Μεταξύ των περιόδων 1925-1930 και 1936-1941 δεν υπάρχει στατιστικά σημαντική διαφορά (p-value>0.05)
+    \item Επίσης μεταξύ των 1931-1935 και 1936-1941 δεν υπάρχει στατιστικά σημαντική διαφορά.
+\end{itemize}
+
+\
+
+
+Αντίστοιχα δουλεύουμε και για τη μεταβλητή PPO(τιμή του χοιρινού κρέατος). Προκύπτει ότι:
+
+\begin{itemize}
+    \item Μεταξύ των περιόδων 1925-1930 και 1931-1935, δεν υπάρχει στατιστικά σημαντική διαφορά καθώς το p-value>0.05, άρα δεν απορρίπτουμε την Η0 ότι η διαφορά είναι μηδενική.
+    \item Μεταξύ των περιόδων 1925-1930 και 1936-1941 επίσης δεν υπάρχει στατιστικά σημαντική διαφορά (p-value>0.05)
+    \item Τέλος, μεταξύ των 1931-1935 και 1936-1941 πάλι δεν υπάρχει στατιστικά σημαντική διαφορά.
+\end{itemize}
+
+Τα αποτελέσματα αυτών των tests είναι στο Output 27.
+
+
+Σημείωση: Αντί για μεμονωμένα t-tests για κάθε περίπτωση, μια εναλλακτική στην περίπτωσή μας θα ήταν one-way ANOVA. Τα πολλά t-tests είναι λιγότερο επιρρεπή σε σφάλματα από την ANOVA, για αυτό και προτιμήθηκε ως τρόπος επίλυσης του προβλήματος.
+
+
+\
+
+\ 
+
+\
+\subsection{Διάμεσοι}
+
+\
+
+\
+
+
+Για τον έλεγχο των διαμέσων χρησιμοποιείται ο έλεγχος median-test του Mood και το Wilcox test.Στη περίπτωσή μας δε μπορεί να εφαρμοστεί ο πρώτος επειδή έχουμε άνισα μεγέθη των τριών μεταβλητών. Κάνουμε τον έλεγχο του Wilcox για κάθε ζεύγος περιόδων για τη τιμή μοσχαρίσιου κρέατος και έχουμε:
+
+(Στον έλεγχο αυτό ως Η0 θεωρείται η περίπτωση που δεν υπάρχει στατιστικά σημαντική διαφορά στις διαμέσους και Ηα το αντίθετο.)
+
+\begin{itemize}
+    \item Μεταξύ των περιόδων 1925-1930 και 1931-1935, δεν υπάρχει στατιστικά σημαντική διαφορά καθώς το p-value>0.05, άρα δεν απορρίπτουμε την Η0 ότι η διαφορά είναι μηδενική.
+    \item Μεταξύ των περιόδων 1925-1930 και 1936-1941 το p-value>0.05, επομένως πάλι δεν υπάρχει στατιστικά σημαντική διαφορά. .
+    \item Τέλος, μεταξύ των 1931-1935 και 1936-1941 το p-value=0.02<0.05, επομένως μπορούμε να πούμε ότι υπάρχει στατιστικά σημαντική διαφορά.
+\end{itemize}
+
+\
+
+\
+
+ Κάνουμε τον ίδιο έλεγχο και για τη τιμή του χοιρινού και προκύπτει ότι μεταξύ όλων των περιόδων δεν υπάρχει στατιστικά σημαντική διαφορά (πάντα το p-value ήταν >0.05). Τα αποτελέσματα μπορείτε να τα δείτε αναλυτικά στα output 28,29.
+
+
+
+
+
+\
+
+
+
+\ 
+
+
+\section{Συμπεράσματα ανάλυσης}
+
+\ 
+
+
+\ 
+
+Από την παραπάνω ανάλυση, τα κύρια συμπεράσματά μας είναι τα εξής:
+
+
+
+\begin{itemize}
+    \item Ο χρόνος δεν επηρεάζει τις τιμές του μοσχαρίσιου κρέατος. Επηρεάζει όμως τις τιμές του χοιρινού.
+    \item Η τιμή του μοσχαρίσιου κρέατος εύλογα επηρεάζεται από την κατανάλωση του, το δείκτη τιμών των προιόντων και το δείκτη διαθέσιμου εισοδήματος/άτομο.
+    \item Η τιμή του χοιρινού επηρεάζεται μεν από την κατανάλωση του αλλά όχι από άλλους παράγοντες. Αυτό σημαίνει ότι το χοιρινό κρέας θα προσφέρεται πάντα σταθερά σε συνάρτηση με την κατανάλωσή του χωρίς να έχουν σημασία οι δείκτες εισοδήματος/τιμών τροφίμων.
+    \item Οι μέθοδοι stepwise selection οδηγούν σε overfitting των δεδομένων.
+    \item Υπάρχει σημαντική διαφορά ανάμεσα στους μέσους των τιμών του μοσχαρίσιου κρέατος των περιόδων 1925-1930 και 1931-1935. Πιθανότατα σε αυτό έπαιξε ρόλο και η οικονομική ύφεση που ξεκίνησε το 1929. Η τιμή του χοιρινού ωστόσο δεν επηρεάστηκε, κάτι που το περιμέναμε, αφού όπως είπαμε η τιμή του χοιρινού επηρεάζεται μόνο από την κατανάλωση του.
+    \item Υπάρχει σημαντική διαφορά ανάμεσα στους διάμεσους των τιμών του μοσχαρίσιου κρέατος μεταξύ των περιόδων 1931-1935 και 1936-1941. Για τις διαμέσους στο χοιρινό δεν υπάρχουν στατιστικά σημαντικές διαφορές, όπως αναμέναμε.
+\end{itemize}
+
+\
+
+\
+
+\ 
+
+\section{ Παράρτημα}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Variables analysis.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\renewcommand{\caption}{Output 1: }
+\caption { Ανάλυση μεταβλητών μοντέλου. }
+
+\
+
+\
+
+\
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm]{"Data summary.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\renewcommand{\caption}{Output 2: }
+\caption { Βασικά περιγραφικά μέτρα για τις μεταβλητές. }
+
+\
+
+\
+
+\
+
+
+\begin{centering}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm]{"Boxplots.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+\
+
+\renewcommand{\caption}{Output 3: }
+\caption{Πλάι-πλάι boxplots των μεταβλητών (πλην της RFP)}
+\end{centering}
+
+\
+
+\
+
+\
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=13cm]{"Boxplot_RFP.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+\
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 4: }
+\caption{Boxplot της RFP.}
+\end{centering}
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro-walk on PFO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro walk on CPO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 5: }
+\caption {Έλεγχος Shapiro-wilk για τις μεταβλητές PFO,CPO αντίστοιχα. }
+\end{centering}
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro on CBE.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 6: }
+\caption {Έλεγχος Shapiro-wilk για τη μεταβλητή CBE. }
+\end{centering}
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro on CFO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 7: }
+\caption {Έλεγχος Shapiro-wilk για τη μεταβλητή CFO. }
+\end{centering}
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro on DINC.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 8: }
+\caption {Έλεγχος Shapiro-wilk για τη μεταβλητή DINC. }
+\end{centering}
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro on PBE.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 9: }
+\caption {Έλεγχος Shapiro-wilk για τη μεταβλητή PBE. }
+\end{centering}
+
+\
+
+\
+
+\
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro on PPO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 10: }
+\caption {Έλεγχος Shapiro-wilk για τη μεταβλητή PPO. }
+\end{centering}
+
+\
+
+\
+
+\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro on RDINC.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 11: }
+\caption {Έλεγχος Shapiro-wilk για τη μεταβλητή RDINC. }
+\end{centering}
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Shapiro on RFP.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 12: }
+\caption {Έλεγχος Shapiro-wilk για τη μεταβλητή RFP. }
+\end{centering}
+
+\
+
+\
+
+\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Kendal's correlation diagram.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 13: }
+\caption {Πίνακας συσχέτισης του Κendall. }
+\end{centering}
+\
+
+\
+
+\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Spearman's correlation diagram.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 14: }
+\caption {Πίνακας συσχέτισης του Spearman. }
+\end{centering}
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Scatterplot_Beefprice_time.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 15: }
+\caption {Scatterplot για τη σχέση χρόνου-τιμής μοσχαρίσιου κρέατος. }
+\end{centering}
+
+
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Scatterplot_PorkPrice_time.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 17: }
+\caption {Scatterplot για τη σχέση χρόνου-τιμής χοιρινού κρέατος. }
+\end{centering}
+
+
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Scatterlot_Beefprice_consumption.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 19: }
+\caption {Scatterplot για τη σχέση τιμής-κατανάλωσης μοσχαρίσιου κρέατος. }
+\end{centering}
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Scatterplot_Porkprice_consumption.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 20: }
+\caption {Scatterplot για τη σχέση τιμής-κατανάλωσης χοιρινού κρέατος. }
+\end{centering}
+
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"pork_consumption.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 23: }
+\caption {Scatterplot για τη σχέση τιμής-κατανάλωσης χοιρινού κρέατος. }
+\end{centering}
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"pork_beef_price.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+\renewcommand{\caption}{Output 24: }
+\caption {Scatterplot για τη σχέση τιμής μοσχαρίσιου-χοιρινού κρέατος. }
+\end{centering}
+
+
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PBE1-2 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PBE1-3 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PBE2-3 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 26: }
+\caption { t-tests για να βρούμε αν η διαφορά μεταξύ των μέσων στις 3 περιόδους είναι σημαντική(μοσχαρίσιο). }
+\end{centering}
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PPO1-2 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PPO1-3 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"TTEST_PPO2-3 (2).png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 27: }
+\caption { t-tests για να βρούμε αν η διαφορά μεταξύ των μέσων στις 3 περιόδους είναι σημαντική(χοιρινό). }
+\end{centering}
+
+\
+
+\
+
+\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Wilcox_PBE1-2.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Wilcox_PBE1-3.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Wilcox_PBE2-3.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 28: }
+\caption { Wilcox tests για να βρούμε αν η διαφορά μεταξύ των διαμέσων στις 3 περιόδους είναι σημαντική(μοσχαρίσιο). }
+\end{centering}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Wilcox_PPO1-2.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Wilcox_PPO1-3.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"Wilcox_PPO2-3.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 29: }
+\caption { Wilcox tests για να βρούμε αν η διαφορά μεταξύ των διαμέσων στις 3 περιόδους είναι σημαντική(χοιρινό). }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"ChisqPBE_CBE.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"ChisqPBE_CPO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"ChisqPBE_PPO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"ChisqCPO_DINC.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 30: }
+\caption { Chi-squared tests για τη διερεύνηση σχέσεων μεταξύ των μεταβλητών. }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"qplot_CPO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 31: }
+\caption { QQPlot για τη μεταβλητή CPO. }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"qplot_PFO.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 32: }
+\caption { QQPlot για τη μεταβλητή PFO. }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{"model.png"}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 33: }
+\caption { Μοντέλο πολλαπλής γραμμικής παλινδρόμησης για τη τιμή του μοσχαρίσιου κρέατος. }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{plot.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 34: }
+\caption { Βασικά διαγράμματα ελέγχου μοντέλου γραμμικής παλινδρόμησης (μοσχαρίσιο κρέας). }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{sh-lil.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 35: }
+\caption { Έλεγχοι Shapiro και Lillie (μοσχαρίσιο κρέας). }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{DW_r.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 36: }
+\caption { Έλεγχος Durbin-Watson (μοσχαρίσιο κρέας). }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{linear_2.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 37: }
+\caption { Μοντέλο πολλαπλής γραμμικής παλινδρόμησης για τη τιμή του χοιρινού κρέατος. }
+\end{centering}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{plots2.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 38: }
+\caption {  Βασικά διαγράμματα ελέγχου μοντέλου γραμμικής παλινδρόμησης (χοιρινό κρέας). }
+\end{centering}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{sh-lil2.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 39: }
+\caption {  Έλεγχοι Shapiro και Lillie (χοιρινό κρέας). }
+\end{centering}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{watson2.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 40: }
+\caption {  Έλεγχος Durbin-Watson (χοιρινό κρέας). }
+\end{centering}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{vif.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 41: }
+\caption {  Έλεγχος VIF (μοσχαρίσιο κρέας). }
+\end{centering}
+
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{vif2.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 42: }
+\caption {  Έλεγχος VIF (χοιρινό κρέας). }
+\end{centering}
+
+
+
+
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{levene.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 46: }
+\caption {  Έλεγχος ομοσκεδαστικότητας για το πολυμεταβλητό μοντέλο (μοσχαρίσιο κρέας). }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{levene2.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 47: }
+\caption {  Έλεγχος ομοσκεδαστικότητας για το πολυμεταβλητό μοντέλο (χοιρινό κρέας). }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{linear_full.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 48: }
+\caption {  Μοντέλο πολλαπλής παλινδρόμησης για τη τιμή του μοσχαρίσιου κρέατος με όλες τις μεταβλητές. }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{linear_pork_all.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 49: }
+\caption {  Μοντέλο πολλαπλής παλινδρόμησης για τη τιμή του χοιρινού κρέατος με όλες τις μεταβλητές. }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{AIC.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 50: }
+\caption { AIC scores για τα μοντέλα πολλαπλής παλινδρόμησης που εφαρμόσαμε (πρώτα για μοσχαρίσιο και μετά για χοιρινό κρέας) }
+\end{centering}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{BIC.png}
+    
+    \label{fig:galaxy}
+\end{figure}
+
+\begin{centering}
+
+
+\renewcommand{\caption}{Output 51: }
+\caption { BIC scores για τα μοντέλα πολλαπλής παλινδρόμησης που εφαρμόσαμε (πρώτα για μοσχαρίσιο και μετά για χοιρινό κρέας) }
+\end{centering}
+
+\end{document}
+
+
+
+
+
